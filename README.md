@@ -1,6 +1,6 @@
 # FMMC
 
-![model](D:\FMMCRec-main\model.png)
+![model](model.png)
 
 ## Installation
 
