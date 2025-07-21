@@ -31,8 +31,7 @@ class BasicConv(nn.Module):
             x = self.dropout(x)
         return x
 def reconstructq(coeff_real, coeff_imag):
-    recon_complex = coeff_real + 1j * coeff_imag  # [B, N, L]
-
+    recon_complex = coeff_real + 1j * coeff_imag  
     reconstructed_time = torch.fft.ifft(recon_complex, dim=-1).real
 
     return reconstructed_time
@@ -160,13 +159,6 @@ class EncoderBlock(nn.Module):
         out = self.dropout(self.norm2(forward + x))
         return out
 
-import torch
-import torch.nn as nn
-import math
-
-import torch
-import torch.nn as nn
-import math
 
 class PositionalEncoding(nn.Module):
     def __init__(self, embed_size, max_len=5000):
@@ -198,9 +190,7 @@ class EncoderBlockWithDirectionalPE(nn.Module):
         self.direction = direction  # 可以设置 'forward' 或 'backward'
 
     def forward(self, x):
-        """
-        x: [batch, seq_len, embed_size]
-        """
+ 
         x_pe = self.pos_encoder(x, direction=self.direction)
         out = self.encoder(x_pe, x_pe, x_pe)
         return out
@@ -262,7 +252,6 @@ class TransformerEncoder(nn.Module):
         x_padding = x_end.repeat(1, self.patch_stride)  # [B, patch_stride]
         x_new = torch.cat((x, x_padding), dim=-1)  # [B, L + patch_stride]
 
-        # unfold 只能处理 3D 或更高维度，这里需要先加一维（如 channel=1）
         x_new = x_new.unsqueeze(1)  # [B, 1, L+pad]
         x_patch = x_new.unfold(dimension=-1, size=self.patch_len,
                                step=self.patch_stride)  # [B, 1, num_patches, patch_len]
