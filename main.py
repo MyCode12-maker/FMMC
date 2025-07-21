@@ -257,8 +257,6 @@ if __name__ == '__main__':
     file = open(f"{processed_data_directory}/{city}_valid", 'rb')
     valid_set = pickle.load(file)
 
-    file = open(f"{processed_data_directory}/{city}_test", 'rb')
-    test_set = pickle.load(file)
     #build_and_save_all_negatives(valid_set, poi_category_mapping, k=5, save_path='PHO_pos_samples_test.pt')
 
 
