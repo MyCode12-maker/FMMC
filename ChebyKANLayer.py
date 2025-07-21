@@ -1,11 +1,8 @@
 import torch
 import torch.nn as nn
-
 import numpy as np
 from numpy.polynomial.legendre import legvander
 from numpy.polynomial.chebyshev import chebvander
-
-import torch.nn as nn
 import torch.nn.functional as F
 # This is inspired by Kolmogorov-Arnold Networks but using Chebyshev polynomials instead of splines coefficients
 class ChebyKANLinear(nn.Module):
@@ -66,16 +63,7 @@ def legendre_chebyshev_vander(x, degree, basis_type='legendre'):
 
 
 def decompose_to_time_domain_2d(data, max_order=12, low=(0, 2), high=(7, 12), basis_type='legendre'):
-    """
-    输入:
-        data: Tensor, shape (L, D) - L为时间长度，D为特征维度
-        max_order: 多项式最高阶
-        low: 低频保留的阶数范围 (from_idx, to_idx)
-        high: 高频保留的阶数范围 (from_idx, to_idx)
-        basis_type: 'legendre' or 'chebyshev'
-    返回:
-        f_low, f_high: 分别为低频、高频重构后的时域数据，shape为 (L, D)
-    """
+
     L, D = data.shape
     device = data.device
 
