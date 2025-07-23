@@ -1,5 +1,4 @@
 import math
-
 import torch
 from torch import nn
 import torch.nn as nn
@@ -7,9 +6,8 @@ import torch.nn.functional as F
 import settings
 from ChebyKANLayer import ChebyKANLinear,decompose_to_time_domain_2d
 import numpy as np
-
-
 device = settings.gpuId if torch.cuda.is_available() else 'cpu'
+
 class BasicConv(nn.Module):
     def __init__(self, c_in, c_out, kernel_size=3, degree=0, stride=1, padding=0, dilation=1, groups=1, act=False,
                  bn=False, bias=False, dropout=0.):
@@ -30,11 +28,12 @@ class BasicConv(nn.Module):
         if self.dropout is not None:
             x = self.dropout(x)
         return x
+        
 def reconstructq(coeff_real, coeff_imag):
     recon_complex = coeff_real + 1j * coeff_imag  
     reconstructed_time = torch.fft.ifft(recon_complex, dim=-1).real
-
     return reconstructed_time
+    
 class ChebyKANLayer2(nn.Module):
     def __init__(self, in_features, out_features,order):
         super().__init__()
